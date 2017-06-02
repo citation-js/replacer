@@ -1,0 +1,11 @@
+{
+  "name": "citation-js-replacer",
+  "version": "0.1.0",
+  "description": "HTML API for Citation.js",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lars Willighagen",
+  "license": "MIT"
+}
