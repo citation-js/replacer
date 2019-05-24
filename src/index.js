@@ -1,45 +1,60 @@
 /* global document, fetch */
 
 import 'whatwg-fetch'
-import Cite from 'citation-js'
+import { Cite, plugins } from '@citation-js/core'
+
+const CSL_BASE_URL = 'cdn.jsdelivr.net/gh/citation-style-language'
+const CONFIG = document.currentScript.dataset
+
+async function get (url) {
+  return (await fetch(url)).text()
+}
+
+function getOpts (options, prefix) {
+  return Object.keys(options).reduce((output, key) => {
+    if (key.slice(0, prefix.length) === prefix) {
+      let option = key.slice(prefix.length)
+      option = option[0].toLowerCase() + option.slice(1)
+      output[option] = options[key] === 'false' ? false : options[key]
+    }
+
+    return output
+  }, {})
+}
 
 window.addEventListener('load', function () {
-  const elements = Array.prototype.slice.call(document.querySelectorAll('.citation-js.cite'))
-  elements.map(async function (element) {
-    const {
-      input = element,
-      outputStyle,
-      outputLang,
-      outputTemplate,
-      outputLocale,
-      outputTemplateUrl,
-      outputLocaleUrl
-    } = element.dataset
+  const inputOptions = getOpts(CONFIG, 'input')
 
+  const pluginConfig = getOpts(CONFIG, 'plugin')
+  for (let plugin of plugins.list()) {
+    const config = plugins.config.get(plugin)
+    if (config) {
+      Object.assign(config, getOpts(pluginConfig, plugin.slice(1)))
+    }
+  }
+
+  const elements = document.getElementsByClassName('citation-js')
+  Array.prototype.map.call(elements, async function (element) {
+    const format = element.dataset.outputFormat || 'bibliography'
     const options = {
-      format: 'real',
-      type: 'html'
+      ...getOpts(element.dataset, 'output'),
+      format: 'html'
     }
 
-    if (outputStyle) {
-      options.style = outputStyle
-    }
-    if (outputLang) {
-      options.lang = outputLang
-    }
-    if (outputTemplate) {
-      options.template = outputTemplate
-    } else if (outputTemplateUrl) {
-      options.template = await (await fetch(outputTemplateUrl)).text()
-    }
-    if (outputLocale) {
-      options.locale = outputLocale
-    } else if (outputLocaleUrl) {
-      options.locale = await (await fetch(outputLocaleUrl)).text()
+    try {
+      const csl = plugins.config.get('@csl')
+      if (options.template && !csl.templates.has(options.template)) {
+        csl.templates.add(options.template, await get(`https://${CSL_BASE_URL}/styles@master/${options.template}.csl`))
+      }
+      if (options.lang && !csl.locales.has(options.lang)) {
+        csl.locales.add(options.lang, await get(`https://${CSL_BASE_URL}/locales@master/${options.lang}.csl`))
+      }
+    } catch (e) {
+      console.error(e)
     }
 
-    const data = await Cite.async(input)
-    const output = data.get(options)
+    const data = await Cite.async(element.dataset.input || element, inputOptions)
+    const output = data.format(format, options)
 
     // Only remove children after all other code has run, so that if there's an error
     // the DOM still has the 'fallback', whatever that is
@@ -47,6 +62,6 @@ window.addEventListener('load', function () {
       element.removeChild(element.firstChild)
     }
 
-    element.appendChild(output)
+    element.insertAdjacentHTML('beforeend', output)
   })
 })
