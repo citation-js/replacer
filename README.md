@@ -1,4 +1,4 @@
-# citation.js-replacer
+# @citation-js/replacer
 
 Simple HTML API for [Citation.js](https://larsgw.github.io/citation.js).
 
@@ -13,17 +13,7 @@ Simple HTML API for [Citation.js](https://larsgw.github.io/citation.js).
 
 ## <a id="starting" href="#starting">Get Started</a>
 
-Simply load the js file.
-
-```html
-<script src="path/to/replacer.citation.js"></script>
-```
-
-You can either download this file from [here](https://github.com/larsgw/citation.js-replacer/blob/master/build/replacer.citation.js), or link it directly from [Rawgit]():
-
-```html
-<script src="https://cdn.rawgit.com/larsgw/citation.js-replacer/v0.1.0/build/replacer.citation.js"></script>
-```
+Create a bundle with the plugins you want to use with the [Bundle Tool](https://github.com/citation-js/bundle-tool) ([here](https://juniper-coat.glitch.me)).
 
 ## <a id="use" href="#use">Use</a>
 
@@ -31,47 +21,39 @@ You can either download this file from [here](https://github.com/larsgw/citation
 
 ## <a id="use.element" href="#use.element">Element</a>
 
-To add a reference, insert any element with the classes `citation-js` and `cite`. By default, the program will use the `textContent` of the element as input.
+To add a reference, insert any element with the class `citation-js`. By default, the program will use the `textContent` of the element as input.
 
 ```html
-<div class="citation-js cite">Q21972834</div>
+<div class="citation-js">Q21972834</div>
 ```
 
 You can also use pass input with the `data-input` attribute.
 
 ```html
-<div class="citation-js cite" data-input="Q21972834">This text can now be ignored</div>
+<div class="citation-js" data-input="Q21972834">This text can now be ignored</div>
 ```
 
 This is usefull, as you can put a fallback in the element, in case the API fails, JavaScript is blocked or the program doesn't work for another reason.
 
 ```html
-<div class="citation-js cite" data-input="Q21972834">
+<div class="citation-js" data-input="Q21972834">
   <a href="https://wikidata.org/wiki/Q21972834">Link</a>
 </div>
 ```
 
 ## <a id="use.output" href="#use.output">Output options</a>
 
-You can specify output options too, with the `data-output-*` attribute. These are the same as the [Citation.js Output options](https://larsgw.github.io/citation.js/api/#cite.out). However, `format` and `type` are locked to returning DOM Elements.
+You can specify output options too, with the `data-output-*` attribute. These are the same as the [Citation.js Output options](https://citation.js.org/api/tutorial-output_formats.html). `data-output-format` is reserved for the format name (`bibliography`, `citation`, `bibtex`). It automatically fetches templates and styles that are not built into Citation.js.
 
 ```html
-<div class="citation-js cite" data-input="Q21972834" data-output-style="citation-apa">
+<div class="citation-js" data-input="Q21972834" data-output-format="bibliography" data-output-template="apa">
   <a href="https://wikidata.org/wiki/Q21972834">Link</a>
 </div>
 ```
 
 ## <a id="use.special" href="#use.special">Special options</a>
 
-Because it isn't really handy to put output template strings or locales in attributes, you can pass these by URL too, with the `data-output-*-url` attribute. The rest of the option works the same as the regular `template` and `locale` options.
-
-```html
-<div class="citation-js cite" data-input="Q21972834" data-output-style="citation-bioinformatics" data-output-template-url="https://cdn.rawgit.com/citation-style-language/styles/914266b9/bioinformatics.csl">
-  <a href="https://wikidata.org/wiki/Q21972834">Link</a>
-</div>
-```
-
-You can, for example, load style files from the [CSL styles repo](https://github.com/citation-style-language/styles). Note that you shouldn't directly link to GitHub here, but instead use a service like [Rawgit](https://rawgit.com/) (to take the load off of the GitHub servers).
+[Input options](https://citation.js.org/api/tutorial-input_options.html) and [plugin configuration](https://citation.js.org/api/tutorial-plugins.html#config) can be set by `data-input-*` and `data-plugin-$PLUGIN-*` respectively.
 
 ### using
 ![Citation.js](https://larsgw.github.io/citation.js/static/img/banner.png)
