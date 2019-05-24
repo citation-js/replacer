@@ -1,6 +1,6 @@
 # @citation-js/replacer
 
-Simple HTML API for [Citation.js](https://larsgw.github.io/citation.js).
+Simple HTML API for [Citation.js](https://citation.js.org).
 
 ##### Table of Contents
 
