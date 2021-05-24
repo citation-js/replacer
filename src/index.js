@@ -26,7 +26,7 @@ window.addEventListener('load', function () {
   const inputOptions = getOpts(CONFIG, 'input')
 
   const pluginConfig = getOpts(CONFIG, 'plugin')
-  for (let plugin of plugins.list()) {
+  for (const plugin of plugins.list()) {
     const config = plugins.config.get(plugin)
     if (config) {
       Object.assign(config, getOpts(pluginConfig, plugin.slice(1)))
