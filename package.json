@@ -32,11 +32,11 @@
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
-    "@citation-js/core": "^0.5.1",
-    "standard": "^16.0.3"
+    "@citation-js/core": "^0.6.1",
+    "standard": "^17.0.0"
   },
   "peerDependencies": {
-    "@citation-js/core": "^0.5.1"
+    "@citation-js/core": "^0.6.1"
   },
   "scripts": {
     "lint": "standard \"src/**/*.js\"",
