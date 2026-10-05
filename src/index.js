@@ -47,7 +47,7 @@ window.addEventListener('load', function () {
         csl.templates.add(options.template, await get(`https://${CSL_BASE_URL}/styles@master/${options.template}.csl`))
       }
       if (options.lang && !csl.locales.has(options.lang)) {
-        csl.locales.add(options.lang, await get(`https://${CSL_BASE_URL}/locales@master/${options.lang}.csl`))
+        csl.locales.add(options.lang, await get(`https://${CSL_BASE_URL}/locales@master/locales-${options.lang}.xml`))
       }
     } catch (e) {
       console.error(e)
