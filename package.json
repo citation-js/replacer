@@ -1,10 +1,11 @@
 {
   "name": "@citation-js/replacer",
   "version": "0.3.1",
+  "type": "module",
   "description": "HTML API for Citation.js",
   "author": "Lars Willighagen",
   "license": "MIT",
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/citation-js/replacer.git"
@@ -22,24 +23,13 @@
     "csl",
     "citeproc"
   ],
-  "files": [
-    "lib"
-  ],
-  "dependencies": {
-    "whatwg-fetch": "^3.6.2"
-  },
   "devDependencies": {
-    "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.4",
-    "@babel/preset-env": "^7.4.4",
-    "@citation-js/core": "^0.6.1",
     "standard": "^17.0.0"
   },
   "peerDependencies": {
-    "@citation-js/core": "^0.6.1"
+    "@citation-js/core": ">=0.6.1 < 1.0"
   },
   "scripts": {
-    "lint": "standard \"src/**/*.js\"",
-    "babel": "babel src -d lib --copy-files"
+    "lint": "standard \"src/**/*.js\""
   }
 }

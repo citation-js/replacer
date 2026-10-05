@@ -1,7 +1,6 @@
-/* global document, fetch */
-
-import 'whatwg-fetch'
 import { Cite, plugins } from '@citation-js/core'
+
+const { document, fetch } = window
 
 const CSL_BASE_URL = 'cdn.jsdelivr.net/gh/citation-style-language'
 const CONFIG = document.currentScript.dataset
