@@ -43,8 +43,8 @@ window.addEventListener('load', function () {
 
     try {
       const csl = plugins.config.get('@csl')
-      if (options.styles && !csl.styles.has(options.styles)) {
-        csl.styles.add(options.template, await get(`https://${CSL_BASE_URL}/styles@master/${options.styles}.csl`))
+      if (options.template && !csl.styles.has(options.template)) {
+        csl.styles.add(options.template, await get(`https://${CSL_BASE_URL}/styles@master/${options.template}.csl`))
       }
       if (options.lang && !csl.locales.has(options.lang)) {
         csl.locales.add(options.lang, await get(`https://${CSL_BASE_URL}/locales@master/locales-${options.lang}.xml`))
