@@ -2,6 +2,10 @@
 
 Simple HTML API for [Citation.js](https://citation.js.org).
 
+[![NPM version](https://img.shields.io/npm/v/@citation-js/replacer.svg)](https://npmjs.org/package/@citation-js/replacer)
+[![NPM total downloads](https://img.shields.io/npm/dt/@citation-js/replacer.svg)](https://npmcharts.com/compare/@citation-js%2Freplacer?minimal=true)
+![License](https://img.shields.io/npm/l/@citation-js/replacer.svg)
+
 ##### Table of Contents
 
 * [Get Started](#starting)
