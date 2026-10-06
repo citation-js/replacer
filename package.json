@@ -1,6 +1,6 @@
 {
   "name": "@citation-js/replacer",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "type": "module",
   "description": "HTML API for Citation.js",
   "author": "Lars Willighagen",
