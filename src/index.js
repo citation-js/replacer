@@ -32,8 +32,8 @@ window.addEventListener('load', function () {
     }
   }
 
-  const className = CONFIG.class || 'citation-js'
-  const elements = document.getElementsByClassName(className)
+  const className = CONFIG.selector || '.citation-js'
+  const elements = document.querySelectorAll(className)
   Array.prototype.map.call(elements, async function (element) {
     const format = element.dataset.outputFormat || 'bibliography'
     const options = {

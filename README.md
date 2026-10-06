@@ -59,7 +59,7 @@ You can specify output options too, with the `data-output-*` attribute. These ar
 
 [Input options](https://citation.js.org/api/tutorial-input_options.html) and [plugin configuration](https://citation.js.org/api/tutorial-plugins.html#config) can be set by `data-input-*` and `data-plugin-$PLUGIN-*` respectively.
 
-The class used to identify which elements to replace can be set with the `data-class` attribute set on the `<script>` element.
+The class used to identify which elements to replace can be set with the `data-selector` attribute set on the `<script>` element.
 
 ### using
 ![Citation.js](https://larsgw.github.io/citation.js/static/img/banner.png)
