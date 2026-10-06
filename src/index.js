@@ -23,6 +23,7 @@ function getOpts (options, prefix) {
 
 window.addEventListener('load', function () {
   const inputOptions = getOpts(CONFIG, 'input')
+  const outputOptions = getOpts(CONFIG, 'output')
 
   const pluginConfig = getOpts(CONFIG, 'plugin')
   for (const plugin of plugins.list()) {
@@ -35,16 +36,20 @@ window.addEventListener('load', function () {
   const className = CONFIG.selector || '.citation-js'
   const elements = document.querySelectorAll(className)
   Array.prototype.map.call(elements, async function (element) {
-    const format = element.dataset.outputFormat || 'bibliography'
+    const format = element.dataset.output || 'bibliography'
     const options = {
-      ...getOpts(element.dataset, 'output'),
-      format: 'html'
+      ...outputOptions,
+      ...getOpts(element.dataset, 'output')
+    }
+
+    if (format === 'bibliography' || format === 'citation') {
+      options.format = 'html'
     }
 
     try {
       const csl = plugins.config.get('@csl')
-      if (options.template && !csl.styles.has(options.template)) {
-        csl.styles.add(options.template, await get(`https://${CSL_BASE_URL}/styles@master/${options.template}.csl`))
+      if (options.style && !csl.styles.has(options.style)) {
+        csl.styles.add(options.style, await get(`https://${CSL_BASE_URL}/styles@master/${options.style}.csl`))
       }
       if (options.lang && !csl.locales.has(options.lang)) {
         csl.locales.add(options.lang, await get(`https://${CSL_BASE_URL}/locales@master/locales-${options.lang}.xml`))
@@ -53,8 +58,11 @@ window.addEventListener('load', function () {
       console.error(e)
     }
 
-    const data = await Cite.async(element.dataset.input || element, inputOptions)
-    const output = data.format(format, options)
+    const data = await Cite.async(element.dataset.input || element.textContent, {
+      ...inputOptions,
+      ...getOpts(element.dataset, 'input')
+    })
+    let output = data.format(format, options)
 
     // Only remove children after all other code has run, so that if there's an error
     // the DOM still has the 'fallback', whatever that is

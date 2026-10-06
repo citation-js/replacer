@@ -47,10 +47,12 @@ This is usefull, as you can put a fallback in the element, in case the API fails
 
 ## <a id="use.output" href="#use.output">Output options</a>
 
-You can specify output options too, with the `data-output-*` attribute. These are the same as the [Citation.js Output options](https://citation.js.org/api/tutorial-output_formats.html). `data-output-format` is reserved for the format name (`bibliography`, `citation`, `bibtex`). It automatically fetches templates and styles that are not built into Citation.js.
+The type of output is specified with the `data-output` attribute, corresponding to the first parameter of `Cite#format()`.
+You can specify output options too, with the `data-output-*` attributes. Styles and locales that are not built into Citation.js
+are automatically fetched from GitHub.
 
 ```html
-<div class="citation-js" data-input="Q21972834" data-output-format="bibliography" data-output-template="apa">
+<div class="citation-js" data-input="Q21972834" data-output="bibliography" data-output-style="apa">
   <a href="https://wikidata.org/wiki/Q21972834">Link</a>
 </div>
 ```
